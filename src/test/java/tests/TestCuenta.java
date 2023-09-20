@@ -27,6 +27,14 @@ public class TestCuenta {
     static ExtentSparkReporter info = new ExtentSparkReporter("target/accountTestsReport.html");
     static ExtentReports extent;
 
+    private void login() throws InterruptedException {
+        HomePage homePage = new HomePage(driver, wait);
+
+        homePage.escribirUsuario(Data.USERNAME);
+        homePage.escribirContrasena(Data.PASSWORD);
+        homePage.clickBotonLogin();
+
+    }
 
     @BeforeAll
     public static void reportSetup() {
@@ -43,6 +51,8 @@ public class TestCuenta {
         accountPage.url("https://parabank.parasoft.com/parabank/index.htm");
     }
 
+
+
     @Test
     @Order(1)
     @Tag("FrontAccount")
@@ -50,11 +60,8 @@ public class TestCuenta {
         ExtentTest test = extent.createTest("Creacion caja de ahorros");
         test.log(Status.INFO, "Comienza el test");
         AccountPage accountPage = new AccountPage(driver, wait);
-        HomePage homePage = new HomePage(driver, wait);
 
-        homePage.escribirUsuario(Data.USERNAME);
-        homePage.escribirContrasena(Data.PASSWORD);
-        homePage.clickBotonLogin();
+        this.login();
         accountPage.clickLinkCrearNuevaCuenta();
         accountPage.seleccionarCajaAhorro();
         accountPage.clickBotonCrearNuevaCuenta();
@@ -73,11 +80,8 @@ public class TestCuenta {
         ExtentTest test = extent.createTest("Comprobar texto al pie en resumen de cuentas");
         test.log(Status.INFO, "Comienza el test");
         AccountPage accountPage = new AccountPage(driver, wait);
-        HomePage homePage = new HomePage(driver, wait);
 
-        homePage.escribirUsuario(Data.USERNAME);
-        homePage.escribirContrasena(Data.PASSWORD);
-        homePage.clickBotonLogin();
+        this.login();
         accountPage.clickLinkResumenDeCuentas();
 
         String mensaje = accountPage.obtenerTextoAlPie();
@@ -95,11 +99,8 @@ public class TestCuenta {
         test.log(Status.INFO, "Comienza el test");
         TransferFundsPage transferPage = new TransferFundsPage(driver, wait);
         AccountPage accountPage = new AccountPage(driver, wait);
-        HomePage homePage = new HomePage(driver, wait);
 
-        homePage.escribirUsuario(Data.USERNAME);
-        homePage.escribirContrasena(Data.PASSWORD);
-        homePage.clickBotonLogin();
+        this.login();
         accountPage.clickLinkTransferenciaDeFondos();
 
         String mensaje = transferPage.obtenerTextoTitulo();
@@ -117,11 +118,8 @@ public class TestCuenta {
         test.log(Status.INFO, "Comienza el test");
         AccountOverviewPage accountOverviewPage = new AccountOverviewPage(driver, wait);
         AccountPage accountPage = new AccountPage(driver, wait);
-        HomePage homePage = new HomePage(driver, wait);
 
-        homePage.escribirUsuario(Data.USERNAME);
-        homePage.escribirContrasena(Data.PASSWORD);
-        homePage.clickBotonLogin();
+        this.login();
         accountPage.clickLinkResumenDeCuentas();
         accountOverviewPage.clickLinkFirstAccount();
         String titulo = accountOverviewPage.obtenerTitulo();
@@ -143,11 +141,8 @@ public class TestCuenta {
         test.log(Status.INFO, "Comienza el test");
         TransferFundsPage transferPage = new TransferFundsPage(driver, wait);
         AccountPage accountPage = new AccountPage(driver, wait);
-        HomePage homePage = new HomePage(driver, wait);
 
-        homePage.escribirUsuario(Data.USERNAME);
-        homePage.escribirContrasena(Data.PASSWORD);
-        homePage.clickBotonLogin();
+        this.login();
         accountPage.clickLinkTransferenciaDeFondos();
         transferPage.escribirImporte("100");
         transferPage.seleccionarCuentaDe();
