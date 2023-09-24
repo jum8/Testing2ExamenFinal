@@ -20,7 +20,8 @@ public class TestsBack {
                 .when()
                 .get("https://parabank.parasoft.com/parabank/register.htm")
                 .then()
-                .statusCode(200).log().status();
+                .assertThat().statusCode(200)
+                .log().status();
     }
 
     @Test
@@ -35,7 +36,7 @@ public class TestsBack {
 
         response
                 .then()
-                .statusCode(200)
+                .assertThat().statusCode(200)
                 .log().status()
                 .log().body();
 
@@ -56,7 +57,7 @@ public class TestsBack {
                         .when().get(url);
         response
                 .then()
-                .statusCode(200)
+                .assertThat().statusCode(200)
                 .log().status()
                 .log().body();
 
@@ -78,7 +79,8 @@ public class TestsBack {
                         .post("https://parabank.parasoft.com/parabank/services/bank/createAccount");
 
         response
-                .then().statusCode(200)
+                .then()
+                .assertThat().statusCode(200)
                 .log().status()
                 .log().body();
 
@@ -98,7 +100,8 @@ public class TestsBack {
                 .queryParam("amount", 125)
                 .when()
                 .post("https://parabank.parasoft.com/parabank/services/bank/transfer")
-                .then().statusCode(200)
+                .then()
+                .assertThat().statusCode(200)
                 .log().status()
                 .log().body();
     }
@@ -116,7 +119,7 @@ public class TestsBack {
                         .when().get(url);
         response
                 .then()
-                .statusCode(200)
+                .assertThat().statusCode(200)
                 .log().status()
                 .log().body();
 
